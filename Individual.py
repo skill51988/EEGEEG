@@ -6,6 +6,7 @@ Created on Wed Apr 13 19:40:30 2022
 @author: hayun
 """
 #Zed 0404
+# Hi its me
 
 import numpy as np
 import matplotlib.pyplot as plt
