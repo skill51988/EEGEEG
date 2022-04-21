@@ -14,6 +14,8 @@ import mne
 import os
 import glob
 
+# dire = '/Users/Ha-Jun/PhD/Data/Oddball/Data/Start/'
+dire ='Z:/Desktop Files/data/'
 bads0 = [['F8', 'Fc2', 'C3', 'F2', 'Afz', 'Pz', 'C6', 'FC4', 'P6', 'TP8', 'Poz', 'Oz', 'Fpz', 'AF3', 'Cp2'],['Fc2', 'C4', 'C3', 'F2', 'Afz', 'FC4', 'Oz', 'C6', 'TP8', 'Fz'],['Fc2', 'C4', 'C3', 'Fc6', 'F8', 'F7', 'Afz', 'P4', 'FC4', 'F2', 'PO4', 'Oz', 'TP8', 'C6', 'P6', 'Fpz', 'AF3', 'Pz'],['C4', 'Fc2', 'C3', 'Afz', 'F2', 'FC4', 'Oz', 'TP8', 'C6', 'P6', 'Pz', 'O2', 'Fpz', 'P4', 'AF3'],['C4', 'C3', 'Fc6', 'Fc2', 'Cp2', 'P4', 'Afz', 'F2', 'Pz', 'Fpz', 'AF3', 'FC4', 'C6', 'TP8', 'PO3', 'Oz', 'PO4'],['Afz', 'O1', 'P4', 'F2', 'TP8', 'C6', 'PO3', 'PO4', 'AF3', 'Fpz', 'Pz', 'C4', 'Fc2', 'T4'],['Fc2', 'C4', 'Afz', 'AF3', 'P4', 'Fpz', 'Pz', 'T6', 'C6', 'FC4', 'TP8', 'PO4', 'PO3', 'F8'],['Fc2', 'C4', 'Afz', 'T6', 'Pz', 'FC4', 'Fpz', 'AF3', 'P4', 'C6', 'TP8', 'PO3', 'PO4']]
 bads1 = [['Fpz', 'AF3', 'Fc5', 'C3', 'Cp1', 'Cp5', 'T6', 'Afz', 'FT7', 'P5', 'PO3', 'C1', 'C2', 'Fz', 'FC3'],['F3', 'Fc5', 'C3', 'T3', 'Fp2', 'Cp5', 'Cp1', 'FT7', 'Afz', 'T6', 'T5', 'O1', 'F1', 'PO3', 'C1'],['F3','Fc5','C3', 'Cp5', 'Cp1', 'FT7', 'T6', 'T5', 'PO3', 'P5', 'TP8', 'C1', 'C5', 'Pz', 'P3', 'F1', 'FC3', 'F6', 'T3', 'Fc6','Fz'],['Poz', 'PO3', 'P5', 'C1', 'FT7', 'F1', 'FC3', 'Afz', 'F6', 'T5', 'T6', 'C3', 'T4', 'Cp5', 'Cp1', 'Fc5', 'F3', 'T3', 'Fc6', 'Fz', 'Pz', 'O2', 'TP8', 'Fp1', 'C5'],['F3', 'Cp5', 'Fc5', 'Cp1', 'T6', 'T5', 'FT7', 'Poz', 'C5', 'C1', 'F6', 'FC3', 'F1', 'O2', 'T3', 'T4', 'Fc6', 'Fz', 'Fp2', 'Fp1', 'C3', 'C4'],['F3', 'Fc5', 'Cp5', 'Cp1', 'Cp6', 'FT7', 'Afz', 'T6', 'T5', 'Fcz', 'C1', 'Poz', 'T3', 'Fc6', 'F1', 'FC3', 'F6', 'C5'],['Fc5', 'F3', 'Cp6', 'T4', 'Cp5', 'T6', 'Afz', 'FT7', 'Poz', 'C1', 'Fcz', 'C5', 'F1', 'FC3', 'F6', 'T3', 'Fc6', 'Fp1'],['Fc5', 'F3', 'Fz', 'T4', 'Cp6', 'FT7', 'Fcz', 'Afz', 'T6', 'C1', 'Poz', 'F1', 'C5', 'T3']]
 bads2 = [['F3', 'Cp1', 'Cp5', 'Cp2', 'T6', 'F1', 'F6', 'Fcz', 'O2', 'FT8', 'C6', 'CP3', 'TP8', 'T5'],['F3', 'T6', 'O2', 'F1', 'F6', 'Fcz', 'PO4', 'TP8', 'CP3', 'FT8', 'C6'],['F3', 'Fc2', 'T6', 'F1', 'F6', 'P4', 'CP3', 'FT8', 'TP8', 'PO4', 'O2'],['F3', 'Fz', 'Cp1', 'F1', 'F6', 'P4', 'O2', 'T6', 'FT8', 'PO4', 'CP3', 'TP8', 'C5', 'Fc2'],['F3', 'Fc2', 'Cp5', 'Cp2', 'Cp1', 'Fz', 'F6', 'O2', 'Pz', 'F1', 'CP3', 'PO4', 'FT8', 'C5', 'T5', 'P4', 'T6'],['F3', 'Fc2', 'O2', 'T5', 'F6', 'Fcz', 'PO4', 'P5', 'TP8', 'CP3', 'FT8', 'T6', 'Fz'],['F3', 'O2', 'T6', 'T5', 'F1', 'F6', 'PO4', 'TP8', 'CP3', 'FT8', 'P5', 'Fc2', 'Cp1', 'Fcz'],['Fc2', 'F3', 'Cp1', 'F1', 'T6', 'O2', 'T5', 'FT8', 'CP3', 'P5', 'PO4', 'Oz', 'TP8']]
@@ -30,25 +32,25 @@ mont = mne.channels.make_standard_montage('standard_1020')
 KiaranC,ZedC,ZedW,BiancaC,SamC,JosepC,KiaranW,DanielW,ZoeW,DanielC = [],[],[],[],[],[],[],[],[],[]
 Name = [KiaranC,ZedC,ZedW,BiancaC,SamC,JosepC,KiaranW,DanielW,ZoeW,DanielC]
 
-for file in sorted(glob.glob('/Users/Ha-Jun/PhD/Data/Oddball/Data/Start/0404_Kiaran/*.EDF')):
+for file in sorted(glob.glob(dire + '0404_Kiaran/*.EDF')):
     KiaranC.append(file)
-for file in sorted(glob.glob('/Users/Ha-Jun/PhD/Data/Oddball/Data/Start/0404_Zed/*.EDF')):
+for file in sorted(glob.glob(dire + '0404_Zed/*.EDF')):
     ZedC.append(file)
-for file in sorted(glob.glob('/Users/Ha-Jun/PhD/Data/Oddball/Data/Start/0504_Zed/*.EDF')):
+for file in sorted(glob.glob(dire + '0504_Zed/*.EDF')):
     ZedW.append(file)
-for file in sorted(glob.glob('/Users/Ha-Jun/PhD/Data/Oddball/Data/Start/0604_Bianca/*.EDF')):
+for file in sorted(glob.glob(dire + '0604_Bianca/*.EDF')):
     BiancaC.append(file)
-for file in sorted(glob.glob('/Users/Ha-Jun/PhD/Data/Oddball/Data/Start/0604_Sam/*.EDF')):
+for file in sorted(glob.glob(dire + '0604_Sam/*.EDF')):
     SamC.append(file)
-for file in sorted(glob.glob('/Users/Ha-Jun/PhD/Data/Oddball/Data/Start/0804_Joseph/*.EDF')):
+for file in sorted(glob.glob(dire + '0804_Joseph/*.EDF')):
     JosepC.append(file)
-for file in sorted(glob.glob('/Users/Ha-Jun/PhD/Data/Oddball/Data/Start/1104_Kiaran/*.EDF')):
+for file in sorted(glob.glob(dire + '1104_Kiaran/*.EDF')):
     KiaranW.append(file)
-for file in sorted(glob.glob('/Users/Ha-Jun/PhD/Data/Oddball/Data/Start/1204_Daniel/*.EDF')):
+for file in sorted(glob.glob(dire + '1204_Daniel/*.EDF')):
     DanielW.append(file)
-for file in sorted(glob.glob('/Users/Ha-Jun/PhD/Data/Oddball/Data/Start/1204_Zoe/*.EDF')):
+for file in sorted(glob.glob(dire + '1204_Zoe/*.EDF')):
     ZoeW.append(file)
-for file in sorted(glob.glob('/Users/Ha-Jun/PhD/Data/Oddball/Data/Start/1304_Daniel/*.EDF')):
+for file in sorted(glob.glob(dire + '1304_Daniel/*.EDF')):
     DanielC.append(file)
 
 low_freq = 0.1
@@ -60,13 +62,13 @@ for i in range(len(Name)):
         mini_blocks[j] = mne.io.read_raw_edf(Name[i][j], infer_types = True, exclude=('DIG DTRIG',), preload = True)
         mini_blocks[j].set_montage(mont,match_case = False, match_alias = True, on_missing = 'ignore')
         mini_blocks[j].info['bads'].extend(bads[i][j])
-        mini_blocks[j].interpolate_bads(reset_bads = True, exclude = ['REF_EEG REF_EEG','Fpz','AF3'])
+        mini_blocks[j].interpolate_bads(reset_bads = True, exclude = ['REF_EEG REF_EEG'])
         mini_blocks[j].filter(low_freq, high_freq, n_jobs = 1)
         # mini_blocks[j].notch_filter(freqs = np.arange(10,46,10),notch_widths = 2)
         mini_blocks[j].notch_filter(freqs = np.arange(50,351,50))
         # mini_blocks[j].set_eeg_reference(ref_channels = ['REF_EEG REF_EEG'])
-        # mini_blocks[j].set_eeg_reference(ref_channels = 'average')
-        mini_blocks[j].save('/Users/Ha-Jun/PhD/Data/Oddball/Data/Start/mini(no_re-reference)/mini{}{}_eeg.fif'.format(i,j), overwrite=True)
+        mini_blocks[j].set_eeg_reference(ref_channels = 'average')
+        mini_blocks[j].save(dire + 'mini/mini{}{}_eeg.fif'.format(i,j),overwrite = True)
     Blocks[i] = mini_blocks
 
 #%% re-reference using average 
@@ -77,12 +79,13 @@ import pandas as pd
 import mne
 import os
 import glob
-
+dire = '/Users/Ha-Jun/PhD/Data/Oddball/Data/Start/'
+dire = 'Z:/Desktop Files/data/'
 Blocks = [[],[],[],[],[],[],[],[],[],[]]
 for i in range(10):
     mini_blocks = [[],[],[],[],[],[],[],[]]
     for j in range(8):
-        mini_blocks[j] = mne.io.read_raw_fif('/Users/Ha-Jun/PhD/Data/Oddball/Data/Start/mini/mini{}{}_eeg.fif'.format(i,j))
+        mini_blocks[j] = mne.io.read_raw_fif(dire + 'mini/mini{}{}_eeg.fif'.format(i,j))
     Blocks[i] = mini_blocks
 
 #%% no re-reference 
@@ -94,11 +97,14 @@ import mne
 import os
 import glob
 
+dire = '/Users/Ha-Jun/PhD/Data/Oddball/Data/Start/'
+dire = 'Z:/Desktop Files/data/'
+
 Blocks = [[],[],[],[],[],[],[],[],[],[]]
 for i in range(10):
     mini_blocks = [[],[],[],[],[],[],[],[]]
     for j in range(8):
-        mini_blocks[j] = mne.io.read_raw_fif('/Users/Ha-Jun/PhD/Data/Oddball/Data/Start/mini(no_re-reference)/mini{}{}_eeg.fif'.format(i,j))
+        mini_blocks[j] = mne.io.read_raw_fif(dire + 'mini(no_re-reference)/mini{}{}_eeg.fif'.format(i,j))
     Blocks[i] = mini_blocks
 #%%
 audio_length = 58.53061224489796
@@ -185,14 +191,33 @@ MM_Epoch_RC = mne.concatenate_epochs((epochs[1][0][MM3], epochs[1][2][MM1], epoc
                                       epochs[5][0][MM1], epochs[5][1][MM5], epochs[5][5][MM1], 
                                       epochs[9][1][MM5], epochs[9][5][MM1], epochs[9][7][MM5]))
 
-ML_Epoch_LC = mne.concatenate_epochs((epochs[1][1][MR2], epochs[1][3][ML3], epochs[1][5][ML1], epochs[1][7][MR2], epochs[3][1][ML3], epochs[3][2][ML1], epochs[3][5][MR2], epochs[3][6][ML3], epochs[4][1][MR5], epochs[4][2][ML1], epochs[4][5][ML4], epochs[4][6][MR5], epochs[4][5][MR4], epochs[5][2][MR4], epochs[5][2][ML4], epochs[5][3][MR5], epochs[5][6][ML1], epochs[5][7][ML4], epochs[5][7][MR4], epochs[9][0][MR4], epochs[9][0][ML4], epochs[9][2][ML1], epochs[9][4][MR5], epochs[9][6][ML4], epochs[9][6][MR4]))
-MM_Epoch_LC = mne.concatenate_epochs((epochs[1][1][MM2], epochs[1][3][MM3], epochs[1][5][MM1], epochs[1][7][MM2], epochs[3][1][MM3], epochs[3][2][MM1], epochs[3][5][MM2], epochs[3][6][MM3], epochs[4][1][MM5], epochs[4][2][MM1], epochs[4][6][MM5], epochs[5][3][MM5], epochs[5][6][MM1], epochs[9][2][MM1], epochs[9][4][MM5]))
+ML_Epoch_LC = mne.concatenate_epochs((epochs[1][1][MR2], epochs[1][3][ML3], epochs[1][5][ML1], epochs[1][7][MR2], 
+                                      epochs[3][1][ML3], epochs[3][2][ML1], epochs[3][5][MR2], epochs[3][6][ML3], 
+                                      epochs[4][1][MR5], epochs[4][2][ML1], epochs[4][5][ML4], epochs[4][6][MR5], epochs[4][5][MR4], 
+                                      epochs[5][2][MR4], epochs[5][2][ML4], epochs[5][3][MR5], epochs[5][6][ML1], epochs[5][7][ML4], epochs[5][7][MR4], 
+                                      epochs[9][0][MR4], epochs[9][0][ML4], epochs[9][2][ML1], epochs[9][4][MR5], epochs[9][6][ML4], epochs[9][6][MR4]))
 
-ML_Epoch_RW = mne.concatenate_epochs((epochs[2][0][MR2], epochs[2][3][ML3], epochs[2][4][ML1], epochs[2][7][MR2], epochs[7][0][ML4], epochs[7][0][MR4], epochs[7][1][ML1], epochs[7][4][MR5], epochs[7][5][ML4], epochs[7][5][MR4], epochs[8][0][MR5], epochs[8][1][MR4], epochs[8][1][ML4], epochs[8][4][ML1], epochs[8][5][MR5]))
-MM_Epoch_RW = mne.concatenate_epochs((epochs[2][0][MM2], epochs[2][3][MM3], epochs[2][4][MM1], epochs[2][7][MM2], epochs[7][1][MM1], epochs[7][4][MM5], epochs[8][0][MM5], epochs[8][4][MM1], epochs[8][5][MM5]))
+MM_Epoch_LC = mne.concatenate_epochs((epochs[1][1][MM2], epochs[1][3][MM3], epochs[1][5][MM1], epochs[1][7][MM2], 
+                                      epochs[3][1][MM3], epochs[3][2][MM1], epochs[3][5][MM2], epochs[3][6][MM3], 
+                                      epochs[4][1][MM5], epochs[4][2][MM1], epochs[4][6][MM5], 
+                                      epochs[5][3][MM5], epochs[5][6][MM1], 
+                                      epochs[9][2][MM1], epochs[9][4][MM5]))
 
-ML_Epoch_LW = mne.concatenate_epochs((epochs[2][1][ML1], epochs[2][2][ML3], epochs[2][5][MR2], epochs[2][6][ML1], epochs[7][2][MR5], epochs[7][3][ML1], epochs[7][6][ML4], epochs[7][6][MR4], epochs[7][7][MR5], epochs[8][2][ML1], epochs[8][3][ML4], epochs[8][3][MR4], epochs[8][6][MR5], epochs[8][7][ML1]))
-MM_Epoch_LW = mne.concatenate_epochs((epochs[2][1][MM1], epochs[2][2][MM3], epochs[2][5][MM2], epochs[2][6][MM1], epochs[7][2][MM5], epochs[7][3][MM1], epochs[7][7][MM5], epochs[8][2][MM1], epochs[8][6][MM5], epochs[8][7][MM1]))
+ML_Epoch_RW = mne.concatenate_epochs((epochs[2][0][MR2], epochs[2][3][ML3], epochs[2][4][ML1], epochs[2][7][MR2], 
+                                      epochs[7][0][ML4], epochs[7][0][MR4], epochs[7][1][ML1], epochs[7][4][MR5], epochs[7][5][ML4], epochs[7][5][MR4],
+                                      epochs[8][0][MR5], epochs[8][1][MR4], epochs[8][1][ML4], epochs[8][4][ML1], epochs[8][5][MR5]))
+
+MM_Epoch_RW = mne.concatenate_epochs((epochs[2][0][MM2], epochs[2][3][MM3], epochs[2][4][MM1], epochs[2][7][MM2], 
+                                      epochs[7][1][MM1], epochs[7][4][MM5], 
+                                      epochs[8][0][MM5], epochs[8][4][MM1], epochs[8][5][MM5]))
+
+ML_Epoch_LW = mne.concatenate_epochs((epochs[2][1][ML1], epochs[2][2][ML3], epochs[2][5][MR2], epochs[2][6][ML1], 
+                                      epochs[7][2][MR5], epochs[7][3][ML1], epochs[7][6][ML4], epochs[7][6][MR4], epochs[7][7][MR5], 
+                                      epochs[8][2][ML1], epochs[8][3][ML4], epochs[8][3][MR4], epochs[8][6][MR5], epochs[8][7][ML1]))
+
+MM_Epoch_LW = mne.concatenate_epochs((epochs[2][1][MM1], epochs[2][2][MM3], epochs[2][5][MM2], epochs[2][6][MM1], 
+                                      epochs[7][2][MM5], epochs[7][3][MM1], epochs[7][7][MM5], 
+                                      epochs[8][2][MM1], epochs[8][6][MM5], epochs[8][7][MM1]))
 
 
 
@@ -233,7 +258,7 @@ A = []
 for i in range(500):
     if i%2 ==1:
         A.append(i)
-#        
+# #        
 # ML_Epoch = ML_Epoch_RC
 # MM_Epoch = MM_Epoch_RC
 
@@ -270,10 +295,10 @@ dif.data = ML_Evoked.data - MM_Evoked.data
 mne.viz.plot_compare_evokeds(dict(MM = MM_Evoked, MLMR = ML_Evoked),colors = ['blue','red'],
                             legend='upper left', show_sensors='upper right'
                             ,combine = 'mean',title = 'MMN, RC,{}'.format(picks),vlines = [0.6])
-#%%
 
 from mne.preprocessing import (ICA, create_eog_epochs, create_ecg_epochs,
                                corrmap)
+#%%
 
 MM = ML_Epoch.copy()
 filt_raw = MM.copy().filter(l_freq=1., h_freq=None,fir_design = 'firwin')
